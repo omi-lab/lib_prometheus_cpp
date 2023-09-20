@@ -49,7 +49,7 @@ ClientMetric Histogram::Collect() const {
   auto cumulative_count = 0ULL;
   metric.histogram.bucket.reserve(bucket_counts_.size());
   for (std::size_t i{0}; i < bucket_counts_.size(); ++i) {
-    cumulative_count += bucket_counts_[i].Value();
+    cumulative_count += static_cast<unsigned long long>(bucket_counts_[i].Value());
     auto bucket = ClientMetric::Bucket{};
     bucket.cumulative_count = cumulative_count;
     bucket.upper_bound = (i == bucket_boundaries_.size()
